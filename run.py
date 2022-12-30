@@ -82,10 +82,21 @@ def update_sales_worksheet(data):
     print("Sales worksheet updated successfully.\n")
 
 
-# This var is the result of calling the function specified and will hold
-# its return value
-data = get_sales_data()
-# New var from list comprehension to convert the list to integers
-sales_data = [int(num) for num in data]
-# print(sales_data)
-update_sales_worksheet(sales_data)
+def main():
+    """
+    Run all program functions
+    """
+    # This var is the result of calling the function specified and will
+    # hold its return value
+    data = get_sales_data()
+    # New var from list comprehension to convert the 'data' list to
+    # integers
+    sales_data = [int(num) for num in data]
+    # print(sales_data)
+    update_sales_worksheet(sales_data)
+
+
+# This print statement is the first thing the user sees on program start
+print("Welcome to Love Sandwiches Data Automation\n")
+# Function call to start the program
+main()
