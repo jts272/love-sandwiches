@@ -104,8 +104,35 @@ def calculate_surplus_data(sales_row):
     # pprint(stock)
     # Create a var for the last row of the stock sheet
     # (this is actually a list slice and I didn't realize!)
+    # stock_row expression wrapped in int() so that calculations may be
+    # performed to work out the surplus <- DIDN'T WORK!
+    # New list comprehension created, specifying int data type
     stock_row = stock[-1]
-    print(stock_row)
+    stock_row_ints = [int(x) for x in stock_row]
+    print(stock_row_ints)
+    # print(stock_row)
+    print(f"stock row: {stock_row}")
+    print(f"sales row: {sales_row}")
+
+    """
+    zip() method used to iterate through two lists at the same time!
+    Declare the singular placeholder vars, separated by commas 'in'
+    zip(list1, list2):
+
+    Creates a var 'surplus' to store the result of the stock minus sales
+    Empty list declared above the for loop so that the results of the
+    zipped iterations can be appended to it.
+
+    int() method wraps the stock var in the for loop. This makes the
+    integer list comprehension strategy obsolete as it converts each
+    string of the stock_row list to an int as it is iterated.
+    """
+    surplus_data = []
+    for stock, sales in zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_data.append(surplus)
+
+    return surplus_data
 
 
 def main():
@@ -121,7 +148,9 @@ def main():
     # print(sales_data)
     update_sales_worksheet(sales_data)
     # Pass the sales_data to the calculate surplus function
-    calculate_surplus_data(sales_data)
+    # Assign the return value of the function to the var that called it
+    new_surplus_data = calculate_surplus_data(sales_data)
+    print(new_surplus_data)
 
 
 # This print statement is the first thing the user sees on program start
