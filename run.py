@@ -165,6 +165,34 @@ def calculate_surplus_data(sales_row):
     return surplus_data
 
 
+def get_last_5_entries_sales():
+    """
+    Collect columns of data from the sales worksheet, collecting the
+    last 5 entries for each sandwich and returns the data as a list of
+    lists.
+
+    col_values() method from gspread allows us to access the data in
+    columns, as opposed to rows.
+
+    Empty list and for loop created to store the values from each list.
+    Note that the index of the spreadsheet columns starts from 1, not 0.
+    The ind var is created in the for loop and runs 6 times,
+    representing the 6 columns or types of sandwiches.
+    """
+    sales = SHEET.worksheet("sales")
+    # column = sales.col_values(3)
+    # pprint(column)
+    columns = []
+    for ind in range(1, 7):
+        # create a var to access the column for each index of the loop
+        column = sales.col_values(ind)
+        # append, starting at -5, then onwards (colon: nothing)
+        columns.append(column[-5:])
+    # pprint(columns)
+
+    return columns
+
+
 def main():
     """
     Run all program functions
@@ -191,4 +219,8 @@ def main():
 # This print statement is the first thing the user sees on program start
 print("Welcome to Love Sandwiches Data Automation\n")
 # Function call to start the program
-main()
+# main()
+
+# var to hold the list containing the list of lists for the last 5 sales
+# of each sandwich type
+sales_columns = get_last_5_entries_sales()
