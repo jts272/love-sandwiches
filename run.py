@@ -73,26 +73,44 @@ def validate_data(values):
     return True
 
 
-def update_sales_worksheet(data):
-    """
-    Update sales worksheet, add new row with the list data provided.
-    """
-    print("Updating sales worksheet...\n")
-    sales_worksheet = SHEET.worksheet("sales")
-    sales_worksheet.append_row(data)
-    print("Sales worksheet updated successfully.\n")
+# The following two functions are commented out. They have been
+# refactored from two functions into one, by passing arguments to
+# specify which data and worksheets are to be used and updated,
+# respectively
+
+# def update_sales_worksheet(data):
+#     """
+#     Update sales worksheet, add new row with the list data provided.
+#     """
+#     print("Updating sales worksheet...\n")
+#     sales_worksheet = SHEET.worksheet("sales")
+#     sales_worksheet.append_row(data)
+#     print("Sales worksheet updated successfully.\n")
 
 
-def update_surplus_worksheet(surplus_list):
+# def update_surplus_worksheet(surplus_list):
+#     """
+#     Update surplus worksheet. Adds a new row to the surplus worksheet,
+#     using the newest surplus data which is assigned in the main
+#     function.
+#     """
+#     print("Updating surplus worksheet...\n")
+#     surplus_worksheet = SHEET.worksheet("surplus")
+#     surplus_worksheet.append_row(surplus_list)
+#     print("Surplus worksheet updated successfully.\n")
+
+
+def update_worksheet(data, worksheet):
     """
-    Update surplus worksheet. Adds a new row to the surplus worksheet,
-    using the newest surplus data which is assigned in the main
-    function.
+    This function used the data provided to the data arg to update the
+    worksheet specified by the worksheet arg. This is a refactoring of
+    two separate functions that updated the sales and surplus worksheets
+    individually. The worksheet arg is to be provided as a string.
     """
-    print("Updating surplus worksheet...\n")
-    surplus_worksheet = SHEET.worksheet("surplus")
-    surplus_worksheet.append_row(surplus_list)
-    print("Surplus worksheet updated successfully.\n")
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} worksheet updated successfully.\n")
 
 
 def calculate_surplus_data(sales_row):
@@ -158,14 +176,16 @@ def main():
     # integers
     sales_data = [int(num) for num in data]
     # print(sales_data)
-    update_sales_worksheet(sales_data)
+    # update_sales_worksheet(sales_data) <- OBSOLETE FUNCTION; see below
+    update_worksheet(sales_data, "sales")
     # Pass the sales_data to the calculate surplus function
     # Assign the return value of the function to the var that called it
     new_surplus_data = calculate_surplus_data(sales_data)
     print(new_surplus_data)
     # Call the function to update the surplus worksheet, using the new
     # surplus var defined above
-    update_surplus_worksheet(new_surplus_data)
+    # update_surplus_worksheet(new_surplus_data) <- OBSOLETE FUNCTION
+    update_worksheet(new_surplus_data, "surplus")
 
 
 # This print statement is the first thing the user sees on program start
