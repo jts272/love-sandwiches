@@ -193,6 +193,31 @@ def get_last_5_entries_sales():
     return columns
 
 
+def calculate_stock_data(data):
+    """
+    Calculate the average stock for each item type, adding 10%
+    """
+    print("Calculating stock data...\n")
+    new_stock_data = []
+    # for loop to calculate the average of last 5 sales for each
+    # sandwich type
+    # For each 'column' in the 'last 5 entries sales'...
+    for column in data:
+        # create new list comprehension of ints
+        int_column = [int(num) for num in column]
+        # now we have this list in ints, use built-in sum() function to
+        # add the values of the int_column and divide by its length
+        avg = sum(int_column) / len(int_column)
+        # print(avg)
+        # Add 10% to the average
+        stock_plus_10_percent = avg * 1.1
+        # append these values to the empty list at the top of the
+        # function, as a rounded int
+        new_stock_data.append(round(stock_plus_10_percent))
+
+    return new_stock_data
+
+
 def main():
     """
     Run all program functions
@@ -214,13 +239,19 @@ def main():
     # surplus var defined above
     # update_surplus_worksheet(new_surplus_data) <- OBSOLETE FUNCTION
     update_worksheet(new_surplus_data, "surplus")
+    # var to hold the list containing the list of lists for the last 5
+    # sales of each sandwich type
+    sales_columns = get_last_5_entries_sales()
+    # Call the calculate stock data function, passing it the last 5
+    # sales. This then performs some calculations to return the average
+    # week's sales, plus 10 percent. The result of this is stored in
+    # this var
+    stock_to_prep = calculate_stock_data(sales_columns)
+    # print(stock_to_prep)
+    update_worksheet(stock_to_prep, "stock")
 
 
 # This print statement is the first thing the user sees on program start
 print("Welcome to Love Sandwiches Data Automation\n")
 # Function call to start the program
-# main()
-
-# var to hold the list containing the list of lists for the last 5 sales
-# of each sandwich type
-sales_columns = get_last_5_entries_sales()
+main()
