@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
+# from pprint import pprint <- NOT USED IN FINAL DEPLOYMENT
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -30,7 +30,8 @@ def get_sales_data():
         print("Data should be six numbers, serparated by commas.")
         print("Example: 10,20,30,40,50,60\n")
 
-        data_str = input("Enter your data here: ")
+        # newline char necessary on input for deployment mock terminal
+        data_str = input("Enter your data here:\n")
         # print(f"The data provided is {data_str}")
 
         # Returns the values provided as a list with the split method
